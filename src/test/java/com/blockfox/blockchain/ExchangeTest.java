@@ -22,12 +22,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
+ * 基于 web3j 实现一个简单的交易所，钱包账号创建，查询余额，转账
  * @author yangjian
  * @since 2018-07-06 下午5:27.
  */
-public class ApiTest {
+public class ExchangeTest {
 
-	static Logger logger = LoggerFactory.getLogger(ApiTest.class);
+	static Logger logger = LoggerFactory.getLogger(ExchangeTest.class);
 
 	private Web3j  web3j = Web3j.build(new HttpService("http://localhost:7545/"));
 
