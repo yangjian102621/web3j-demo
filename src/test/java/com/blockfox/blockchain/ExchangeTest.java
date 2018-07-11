@@ -30,7 +30,7 @@ public class ExchangeTest {
 
 	static Logger logger = LoggerFactory.getLogger(ExchangeTest.class);
 
-	private Web3j  web3j = Web3j.build(new HttpService("http://localhost:7545/"));
+	private Web3j  web3j = Web3j.build(new HttpService("http://localhost:8545/"));
 
 	/**
 	 * 获取客户端版本
@@ -54,7 +54,7 @@ public class ExchangeTest {
 		//钱包文件名称
 		String walletFileName;
 		//钱包地址
-		String walletFilePath = "/home/yangjian/";
+		String walletFilePath = "./keystore/";
 		walletFileName = WalletUtils.generateNewWalletFile("123456", new File(walletFilePath), false);
 		logger.info("wallet name: "+walletFileName);
 	}
@@ -66,11 +66,11 @@ public class ExchangeTest {
 	@Test
 	public void getBalance() throws IOException {
 
-		Request<?, EthGetBalance> request = web3j.ethGetBalance("0x2eaBCA3C9Ee38a3896cBA2e2e74E613f80332194", DefaultBlockParameterName.LATEST);
+		Request<?, EthGetBalance> request = web3j.ethGetBalance("0xc810de81dfc703530407528b49f1a32ed34dd57e", DefaultBlockParameterName.LATEST);
 		BigInteger balance = request.send().getBalance();
 		//转换单位
 		BigDecimal balanceEther = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
-		System.out.println(balanceEther);
+		logger.info("balance: "+balanceEther);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class ExchangeTest {
 	 */
 	private Credentials getCredentialsByPrivateKey() {
 
-		Credentials credentials = Credentials.create("2f128004e9510bde8d977a07549a5d83c822c86e0c7ce6030f01556f586fc37f");
+		Credentials credentials = Credentials.create("d544babee3d6697dd1fd56d42ac1b54a13b271caffa0ffa6250248a479d79063");
 		logger.info("wallet address: "+ credentials.getAddress());
 		return  credentials;
 	}
@@ -90,8 +90,8 @@ public class ExchangeTest {
 	 */
 	private Credentials loadWallet() throws IOException, CipherException {
 
-		String walletFilePath="/home/yangjian/account";
-		String passWord="111111";
+		String walletFilePath="./keystore/UTC--2018-07-09T03-49-26.401000000Z--591b1b54c060980b6592cf858b5f31e29365d38c.json";
+		String passWord="123456";
 		Credentials credentials = WalletUtils.loadCredentials(passWord, walletFilePath);
 		logger.info("wallet address: "+ credentials.getAddress());
 		return credentials;
@@ -112,7 +112,7 @@ public class ExchangeTest {
 		//付款人的私钥
 		Credentials credentials = getCredentialsByPrivateKey();
 		//收款人地址
-		String addressTo = "0x1E3E2A1BeF13bE315559e3B1a2ed8aa39EA684e1";
+		String addressTo = "0xc810de81dfc703530407528b49f1a32ed34dd57e";
 		BigDecimal value = BigDecimal.valueOf(30.1415926);
 		TransactionReceipt send = Transfer.sendFunds(web3j, credentials, addressTo, value, Convert.Unit.ETHER)
 				.send();

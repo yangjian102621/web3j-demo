@@ -8,8 +8,10 @@ import org.web3j.crypto.Keys;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Convert;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class AccountTest {
 	 * 初始化 web3j
 	 */
 	private void initWeb3j() {
-		web3j = Web3j.build(new HttpService("http://localhost:7545/"));
+		web3j = Web3j.build(new HttpService("http://localhost:8545/"));
 	}
 
 	/**
@@ -85,11 +87,18 @@ public class AccountTest {
 	 */
 	@Test
 	public void getBalance() throws IOException {
+
 		initWeb3j();
-		String account = web3j.ethAccounts().send().getAccounts().get(0);
-		BigInteger balance = web3j.ethGetBalance(account,
-				DefaultBlockParameterName.EARLIEST).send().getBalance();
-		logger.info("balance: "+ balance);
+		String address = web3j.ethAccounts().send().getAccounts().get(0);
+		logger.info("balance1: "+ getBalance(address));
+		logger.info("balance2: "+ getBalance("0xc810de81dfc703530407528b49f1a32ed34dd57e"));
+	}
+
+	private BigDecimal getBalance(String address) throws IOException {
+		BigInteger balance = web3j.ethGetBalance(address,
+				DefaultBlockParameterName.LATEST).send().getBalance();
+		BigDecimal balanceEther = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
+		return balanceEther;
 	}
 
 }

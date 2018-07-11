@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.blockfox.blockchain</groupId>
-	<artifactId>java-web3j</artifactId>
+	<artifactId>web3j</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>java-web3j</name>
+	<name>web3j</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
