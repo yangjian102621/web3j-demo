@@ -24,14 +24,7 @@ public class AccountTest {
 
 	static Logger logger = LoggerFactory.getLogger(AccountTest.class);
 
-	private Web3j web3j;
-
-	/**
-	 * 初始化 web3j
-	 */
-	private void initWeb3j() {
-		web3j = Web3j.build(new HttpService("http://localhost:8545/"));
-	}
+	private Web3j web3j = Web3j.build(new HttpService("http://localhost:8545/"));
 
 	/**
 	 * 创建钱包账号
@@ -74,7 +67,6 @@ public class AccountTest {
 	 */
 	@Test
 	public void getAccounts() throws IOException {
-		initWeb3j();
 		List<String> accounts = web3j.ethAccounts().send().getAccounts();
 		accounts.forEach(accout -> {
 			logger.info("address: "+accout);
@@ -88,7 +80,6 @@ public class AccountTest {
 	@Test
 	public void getBalance() throws IOException {
 
-		initWeb3j();
 		String address = web3j.ethAccounts().send().getAccounts().get(0);
 		logger.info("balance1: "+ getBalance(address));
 		logger.info("balance2: "+ getBalance("0xc810de81dfc703530407528b49f1a32ed34dd57e"));

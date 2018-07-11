@@ -79,7 +79,7 @@ public class ExchangeTest {
 	 */
 	private Credentials getCredentialsByPrivateKey() {
 
-		Credentials credentials = Credentials.create("d544babee3d6697dd1fd56d42ac1b54a13b271caffa0ffa6250248a479d79063");
+		Credentials credentials = Credentials.create("4a5f9ce564aaa77d94c9c57f4bd718b0697ace9fd3cf726c583af9403caef9b1");
 		logger.info("wallet address: "+ credentials.getAddress());
 		return  credentials;
 	}
