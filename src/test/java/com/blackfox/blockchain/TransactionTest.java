@@ -1,4 +1,4 @@
-package com.blockfox.blockchain;
+package com.blackfox.blockchain;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -55,12 +55,12 @@ public class TransactionTest {
 		String from = accounts.get(0);
 		String to = "0xc810de81dfc703530407528b49f1a32ed34dd57e";
 		// 设置 gas 价格，如果设置为默认值则为 null
-		BigInteger gasPrice = Convert.toWei("50",Convert.Unit.GWEI).toBigInteger();
+		BigInteger gasPrice = Convert.toWei("20",Convert.Unit.GWEI).toBigInteger();
 		// 设置 gas limit
 		BigInteger gasLimit = BigInteger.valueOf(30000L);
-		BigInteger value = Convert.toWei("10",Convert.Unit.ETHER).toBigInteger();
+		BigInteger value = Convert.toWei("0",Convert.Unit.ETHER).toBigInteger();
 		BigInteger nonce = null;
-		String data = null;
+		String data = "fuck";
 		Transaction tx = new Transaction(from,nonce,gasPrice,gasLimit,to,value,data);
 		String txHash = web3j.ethSendTransaction(tx).send().getTransactionHash();
 		logger.info("transaction hash: "+ txHash);
@@ -211,14 +211,15 @@ public class TransactionTest {
 	 */
 	@Test
 	public void getTransactionByHash() throws IOException {
-		String txHash = "0x2705bb472dac55c80d546c377615700735964d8c4507172125ea72929ea855f4";
+		String txHash = "0x0c89207dc160180da17fee0b6d4cdb817a07e1ee8ecdb719489343e536751fe2";
 		Optional<org.web3j.protocol.core.methods.response.Transaction> transaction = web3j.ethGetTransactionByHash(txHash).send().getTransaction();
 
 		if (transaction.isPresent()) {
 			String inputData = new String(Numeric.hexStringToByteArray(transaction.get().getInput()));
 			logger.info("from: "+ transaction.get().getFrom());
 			logger.info("to: "+ transaction.get().getTo());
-			logger.info("gas: "+ transaction.get().getGas());
+			logger.info("gas limit: "+ transaction.get().getGas());
+			logger.info("gas price: "+ transaction.get().getGasPrice());
 			logger.info("amount: "+ transaction.get().getValue());
 			logger.info("blockHash: "+ transaction.get().getBlockHash());
 			logger.info("input data: "+inputData);
@@ -227,7 +228,7 @@ public class TransactionTest {
 			String blockHash = transaction.get().getBlockHash();
 			EthBlock.Block block = web3j.ethGetBlockByHash(blockHash, true).send().getBlock();
 			logger.info("block gas used: "+ block.getGasUsed());
-			logger.info("block extra data: "+ block.getExtraData());
+			logger.info("block gas limit: "+ block.getGasLimit());
 			logger.info("block timestamp: "+ block.getTimestamp());
 		}
 	}

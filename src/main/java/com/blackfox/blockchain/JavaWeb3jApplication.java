@@ -1,4 +1,4 @@
-package com.blockfox.blockchain;
+package com.blackfox.blockchain;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
