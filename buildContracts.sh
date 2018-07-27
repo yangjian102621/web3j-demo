@@ -26,8 +26,14 @@ for file in `ls $srcDir/*.sol`; do
 	web3j solidity generate \
 		$abiDir/$target.bin \
 		$abiDir/$target.abi \
-		-p com.blackfox.blockchain.contracts \
+		-p com.blackfox.blockchain.test.contracts \
 		-o $javaDir > /dev/null
+
+	web3j solidity generate \
+    		$abiDir/$target.bin \
+    		$abiDir/$target.abi \
+    		-p com.blackfox.blockchain.contracts \
+    		-o src/main/java > /dev/null
 	echo "Complete"
 
 done

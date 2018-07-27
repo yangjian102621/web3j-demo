@@ -1,4 +1,4 @@
-package com.blackfox.blockchain;
+package com.blackfox.blockchain.test;
 
 import com.blackfox.blockchain.service.AccountService;
 import org.junit.Test;

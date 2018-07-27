@@ -1,7 +1,7 @@
-package com.blackfox.blockchain;
+package com.blackfox.blockchain.test;
 
 import com.blackfox.blockchain.service.AccountService;
-import com.blackfox.blockchain.contracts.Voting;
+import com.blackfox.blockchain.test.contracts.Voting;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

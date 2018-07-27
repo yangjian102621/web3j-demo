@@ -1,4 +1,4 @@
-package com.blackfox.blockchain;
+package com.blackfox.blockchain.test;
 
 import org.junit.Test;
 import org.slf4j.Logger;
